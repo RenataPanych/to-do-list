@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="panel panel--lists">
+      <header class="panel__head">
+        <div class="panel__title">
+          <h1>To-Do List</h1>
+          <p>Списки</p>
+        </div>
+        <div class="pill" id="pillLists">Списків: 0</div>
+      </header>
+
+      <div class="panel__body">
+        <div class="row">
+          <input class="input" id="listNameInput" placeholder="Назва нового списку…" />
+          <button class="btn btn--primary" id="createListBtn" type="button" aria-label="Створити список">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Список</span>
+          </button>
+        </div>
+
+        <div class="lists" id="lists"></div>
+      </div>
+    </aside>
+
+    <main class="panel panel--tasks">
+      <header class="panel__head panel__head--tasks">
+        <div class="panel__title">
+          <h2 id="activeTitle">Активний список</h2>
+          <p id="activeMeta">0/0 виконано</p>
+        </div>
+
+        <div class="headActions">
+          <button class="btn btn--ghost" id="clearDoneBtn" type="button">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 12l4 4L19 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Прибрати виконані</span>
+          </button>
+          <button class="btn btn--danger" id="deleteListBtn" type="button">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 7h12M10 7V5h4v2m-7 0l1 14h8l1-14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Видалити</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- прибрали tabs повністю -->
+
+      <section class="sortbar" aria-label="Сортування">
+        <div class="sortbar__group" id="sortGroup">
+          <button class="sort" type="button" data-sort="prio" id="prioSortBtn">За пріоритетом</button>
+        </div>
+      </section>
+
+      <section class="panel__body">
+        <form class="addForm" id="addForm">
+          <div class="addForm__grid">
+            <label class="field">
+              <span class="field__label">Назва справи</span>
+              <input class="input" id="taskInput" />
+            </label>
+
+            <label class="field">
+              <span class="field__label">Пріоритет</span>
+              <select class="select" id="prioSelect" aria-label="Пріоритет">
+                <option value="1">Низький</option>
+                <option value="2" selected>Середній</option>
+                <option value="3">Високий</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Час</span>
+              <input class="input" id="dateInput" type="time" aria-label="Час" />
+            </label>
+
+            <label class="field">
+              <span class="field__label">Теги</span>
+              <input class="input" id="tagsInput" />
+            </label>
+          </div>
+
+          <button class="btn btn--primary" id="addTaskBtn" type="submit">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Додати</span>
+          </button>
+        </form>
+
+        <div class="hint" id="dragHint"></div>
+
+        <div class="tasks" id="tasks"></div>
+
+        <footer class="footer">
+          <div class="footer__left" id="stats"></div>
+          <div class="footer__right"></div>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__head">
+        <h3 class="modal__title" id="modalTitle">Повідомлення</h3>
+        <button class="btn btn--ghost btn--icon" id="modalClose" type="button" aria-label="Закрити">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__actions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
